@@ -2,6 +2,7 @@
   "name": "faast-rt-docs",
   "version": "0.0.1",
   "description": "The official documentation repository for Faast",
+  "packageManager": "pnpm@8.8.0",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
