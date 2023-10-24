@@ -1,7 +1,9 @@
 import { Transition } from '@headlessui/react';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
-import FeaturesBg from '../public/images/features-bg.png';
+import Features1 from '../public/images/features-1.png';
+import Features2 from '../public/images/features-2.png';
+import Features3 from '../public/images/features-3.png';
 
 const Tab = ({ title, text, selected, onClick }) => {
   return (
@@ -146,17 +148,17 @@ export default function Hero() {
                   <TabImage
                     selected={tab === 1}
                     heightFix={heightFix}
-                    image={FeaturesBg}
+                    image={Features1}
                   />
                   <TabImage
                     selected={tab === 2}
                     heightFix={heightFix}
-                    image={FeaturesBg}
+                    image={Features2}
                   />
                   <TabImage
                     selected={tab === 3}
                     heightFix={heightFix}
-                    image={FeaturesBg}
+                    image={Features3}
                   />
                 </div>
               </div>
