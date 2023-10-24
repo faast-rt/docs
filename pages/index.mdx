@@ -4,14 +4,14 @@ title: Faast - A Serverless runtime in Rust
 
 import Link from 'next/link';
 
-<div className="home-content">
-  <div className="content-container">
-    <h1 className="text-3xl font-bold">
-      Make beautiful websites <br className="hidden sm:block" />
-      with Next.js & MDX
-    </h1>
-    <Link href="/docs">
-      Get started <span>→</span>
-    </Link>
-  </div>
+import CTA from '../components/cta';
+import Features from '../components/features';
+import Hero from '../components/hero';
+import Testimonials from '../components/testimonials';
+
+<div className="flex min-h-screen flex-col overflow-hidden supports-[overflow:clip]:overflow-clip">
+  <Hero />
+  <Features />
+  <Testimonials />
+  <CTA />
 </div>
