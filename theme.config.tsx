@@ -52,6 +52,33 @@ const config: DocsThemeConfig = {
       };
     }
   },
+  banner: {
+    key: '1.0-release-in-progress',
+    text: (
+      <p>
+        ⚠️ This website is still in construction, you may find incorrect
+        information.
+      </p>
+    ),
+  },
+  navigation: {
+    prev: true,
+    next: true,
+  },
+  footer: {
+    text: (
+      <div className="flex flex-col">
+        <span>Apache-2.0 {new Date().getFullYear()} © Faast.</span>
+        <a href="https://www.netlify.com">
+          {' '}
+          <img
+            src="https://www.netlify.com/v3/img/components/netlify-dark.svg"
+            alt="Deploys by Netlify"
+          />{' '}
+        </a>
+      </div>
+    ),
+  },
 };
 
 export default config;
