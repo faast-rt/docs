@@ -1,24 +1,35 @@
-# Nextra Docs Template
+# FAAST DOC
 
-This is a template for creating documentation with
-[Nextra](https://nextra.site).
+This folder contains the source code of the
+[Faast documentation website](https://faast-rt.com).
 
-[**Live Demo →**](https://nextra-docs-template.vercel.app)
+## Contributing
 
-[![](.github/screenshot.png)](https://nextra-docs-template.vercel.app)
+You can [submit an issue](https://github.com/faast-rt/docs/issues/new/choose)
+with documentation request or submit a pull request with suggested changes.
 
-## Quick Start
+To help you, all the documentation pages have a button **Edit this page** at the
+right to go directly to the associated markdown file on the repository.
 
-Click the button to clone this repository and deploy it on Vercel:
+Please refer to the main [CONTRIBUTING.md](#) for contributing guidelines.
 
-[![](https://vercel.com/button)](https://vercel.com/new/clone?s=https%3A%2F%2Fgithub.com%2Fshuding%2Fnextra-docs-template&showOptionalTeamCreation=false)
+## Development
 
-## Local Development
+Below a guide to help you run the website locally and preview changes before
+submitting them.
 
-First, run `pnpm i` to install the dependencies.
+Please ensure that your environment match the following requirements :
 
-Then, run `pnpm dev` to start the development server and visit localhost:3000.
+- [pnpm](https://pnpm.io/installation)
+- [NodeJS](https://nodejs.org/en/) (v17+)
 
-## License
+To run the website locally :
 
-This project is licensed under the MIT License.
+```bash
+pnpm install
+pnpm dev
+```
+
+The website should now be up and running at http://localhost:3000. Next.js will
+automatically reload your changes. When you're done, stop the server by hitting
+`CTRL+C`.
