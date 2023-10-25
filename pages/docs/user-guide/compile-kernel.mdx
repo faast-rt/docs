@@ -1,0 +1,49 @@
+# Compiling Linux kernel
+
+Lambdo uses a Linux kernel compiled from source. This is a guide to compile the
+kernel.
+
+## Install dependencies
+
+#### Debian/Ubuntu
+
+```bash copy filename="bash"
+sudo apt update
+sudo apt install git build-essential bc flex bison
+```
+
+#### Fedora/RHEL/CentOS
+
+```bash copy filename="bash"
+sudo dnf install git gcc make xz bc flex bison diffutils
+```
+
+#### Arch Linux
+
+```bash copy filename="bash"
+sudo pacman -Syu
+sudo pacman -S git gcc make xz bc flex bison diffutils
+```
+
+## Build the kernel
+
+Clone the Linux kernel official repository:
+
+```bash copy filename="bash"
+git clone https://github.com/torvalds/linux.git
+```
+
+Generate the default configuration:
+
+```bash copy filename="bash"
+cd linux
+sudo make tinyconfig
+```
+
+Compile the kernel:
+
+```bash copy filename="bash"
+KCFLAGS="-Wa,-mx86-used-note=no" sudo make bzImage -j `nproc`
+```
+
+**The image is located at `arch/x86/boot/compressed/vmlinux.bin`**

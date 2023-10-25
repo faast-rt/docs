@@ -1,0 +1,4 @@
+{
+  "compile-kernel": "Compiling the Kernel",
+  "build-initramfs": "Build initramfs"
+}
