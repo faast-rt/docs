@@ -1,9 +1,10 @@
 import { useRouter } from 'next/router';
 import { useConfig, type DocsThemeConfig } from 'nextra-theme-docs';
 import React from 'react';
+import RocketLogo from './components/logo';
 
 const config: DocsThemeConfig = {
-  logo: <strong>Faast</strong>,
+  logo: <span className='flex flex-row items-center'><RocketLogo/><h1>FAAST</h1></span>,
   docsRepositoryBase: 'https://github.com/faast-rt/docs/tree/main/',
   project: {
     link: 'https://github.com/faast-rt',
