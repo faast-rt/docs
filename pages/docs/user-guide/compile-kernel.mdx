@@ -9,28 +9,28 @@ kernel.
 
 ```bash copy filename="bash"
 sudo apt update
-sudo apt install git build-essential bc flex bison
+sudo apt install git build-essential bc flex bison curl tar
 ```
 
 #### Fedora/RHEL/CentOS
 
 ```bash copy filename="bash"
-sudo dnf install git gcc make xz bc flex bison diffutils
+sudo dnf install git gcc make xz bc flex bison diffutils curl tar
 ```
 
 #### Arch Linux
 
 ```bash copy filename="bash"
-sudo pacman -Syu
-sudo pacman -S git gcc make xz bc flex bison diffutils
+sudo pacman -Syu git gcc make xz bc flex bison diffutils curl tar
 ```
 
 ## Build the kernel
 
-Clone the Linux kernel official repository:
+Download and extract the kernel source:
 
 ```bash copy filename="bash"
-git clone https://github.com/torvalds/linux.git
+curl -L https://cdn.kernel.org/pub/linux/kernel/v6.x/linux-6.5.9.tar.xz --output linux-6.5.9.tar.xz
+tar xf linux-6.5.9.tar.xz --directory linux
 ```
 
 Generate the default configuration:
