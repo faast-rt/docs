@@ -1,0 +1,83 @@
+---
+title: 'Example: Node'
+description:
+  'This example demonstrates how to deploy a simple Node.js executor on Faast'
+---
+
+import { Steps } from 'nextra/components';
+
+# Example: Node
+
+This example demonstrates how to deploy a simple Node.js executor on Faast using
+Docker Compose. We have provided an example folder on GitHub, containing the
+necessary initramfs and configuration file to work seamlessly with Docker
+Compose.
+
+## A few explanations
+
+In the interest of simplifying the initial setup and demonstration, we have
+pre-compiled the necessary components and included them in the example folder
+available on GitHub.
+
+- The provided initramfs has been built with essential elements already
+  incorporated. It includes an agent responsible for facilitating the
+  communication between the VM and the API via GRPC. Additionally, it comprises
+  the Node.js SDK, enabling the immediate deployment and execution of Node.js
+  functions.
+
+- A configuration file for the Lambdo component is also provided, pre-set with
+  the parameters needed for interfacing with the API. This pre-configuration
+  accelerates the setup process, allowing you to dive directly into deploying
+  and testing your functions.
+
+This pre-configured setup is designed to lower the entry barrier, offering a
+straightforward way to explore Faast's functionality, especially for those new
+to the system or eager to quickly test a Node.js function deployment.
+
+## Let's run it
+
+### Clone the lambdo repository
+
+You can clone the `lambdo` repository from GitHub using the following command:
+
+```bash copy filename="bash"
+git clone https://github.com/faast-rt/lambdo
+cd lambdo
+```
+
+### Start lambdo using Docker Compose
+
+You can start lambdo using Docker Compose using the following command:
+
+```bash copy filename="bash"
+docker compose up
+```
+
+### Execute your Node.js code
+
+Lambdo will now expose an HTTP endpoint on port 3000. You can send a POST
+request to `/run` in order to execute your Node.js code.
+
+The following example uses `curl`:
+
+```bash copy filename="bash"
+curl --location 'http://127.0.0.1:3000/run' \
+  --header 'Content-Type: application/json' \
+  --data '{
+      "language": "NODE",
+      "version": "1.0.0",
+      "input": "",
+      "code": [{
+          "filename": "main.js",
+          "content": "console.log('\''Hello World!'\'')"
+      }]
+  }'
+```
+
+You should see the following output:
+
+```bash filename="bash"
+{"status":0,"stdout":"Hello World\n","stderr":""}
+```
+
+You are now ready to execute your own Node.js code on Faast!
