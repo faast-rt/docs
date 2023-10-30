@@ -1,0 +1,106 @@
+---
+title: 'Configuration'
+description: 'In this section, we will go through the configuration of Faast.'
+---
+
+import { Callout } from 'nextra/components';
+
+# Configuration
+
+In this section, we will go through the configuration of Faast.
+
+<Callout type="info">
+  Please note that the following configuration is just an example and you should
+  adjust it to your needs.
+</Callout>
+
+```yaml copy filename="config.yaml"
+apiVersion: lambdo.io/v1alpha1
+kind: Config
+api:
+  # The host on which the API server will listen
+  web_host: 0.0.0.0
+  # The port on which the API server will listen
+  web_port: 3000
+  # The host on which the gRPC server will listen
+  grpc_host: 0.0.0.0
+  # The port on which the gRPC server will listen
+  gprc_port: 50051
+  # Bridge name
+  bridge: lambdo0
+  # The IP address of the bridge
+  ip: 10.0.50.0/8
+vmm:
+  # The kernel path to use for the vmm
+  kernel: /var/lib/lambdo/kernel/vmlinux.bin
+agent: # NOT IMPLEMENTED
+  # The path to the agent binary
+  path: /usr/local/bin/lambdo-agent
+  # The path to the agent configuration file
+  config: /etc/lambdo/agent.yaml
+languages:
+  # The name of the language runtime
+  - name: NODE
+    # The version of the node runtime
+    version: 12
+    # The initramfs to use for the runtime
+    initramfs: /var/lib/lambdo/initramfs/node-12.img
+    # The steps to run the code
+    steps:
+      - name: Run the code
+        command: /usr/local/bin/node {{filename}}
+        # The output configuration
+        output:
+          # Whether to enable the output
+          enabled: true
+          # Whether to enable debug output (useful for build steps)
+          debug: false
+```
+
+## API Configuration
+
+The provided configuration file is structured to define various operational
+parameters for Faast. Here's an insightful breakdown of the configuration
+
+### Web Host and Port
+
+`web_host: 0.0.0.0` and `web_port: 3000` specify the host IP and port for the
+API server, enabling it to listen for incoming HTTP requests on all available
+network interfaces at port 3000.
+
+### gRPC Host and Port
+
+`grpc_host: 0.0.0.0` and `gprc_port: 50051` set the host IP and port for the
+gRPC server, facilitating it to listen for gRPC requests on all available
+network interfaces at port 50051.
+
+<Callout type="warning" emoji="⚠️">
+  You should not change the gRPC port unless you know what you are doing.
+</Callout>
+
+### Bridge Configuration
+
+`bridge: lambdo0` and `ip: 10.0.50.0/8` designate the name and IP address for
+the network bridge, which is instrumental in network communications within the
+Faast ecosystem.
+
+<Callout type="warning" emoji="⚠️">
+  You should not change the bridge name and IP address unless you know what you
+  are doing.
+</Callout>
+
+## VMM (Virtual Machine Monitor) Configuration
+
+`kernel: /var/lib/lambdo/kernel/vmlinux.bin` stipulates the path to the Linux
+kernel binary that will be utilized by the VMM.
+
+## Language Runtime Configuration
+
+The configuration for a Node.js runtime is specified with a name `name: NODE`,
+version `version: 12`, and the path to the respective initramfs
+`initramfs: /var/lib/lambdo/initramfs/node-12.img`.
+
+<Callout type="info">
+  If you need more information about the configuration, please refer to the
+  configuration reference.
+</Callout>

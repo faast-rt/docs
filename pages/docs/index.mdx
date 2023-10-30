@@ -1,13 +1,60 @@
+---
+title: 'Faast Documentation'
+description:
+  'Welcome to the documentation of Faast, a cutting-edge Function as a Service
+  (FaaS) server designed to maximize efficiency.'
+---
+
+import { Callout } from 'nextra/components';
+
 # Introduction
 
-Welcome to Nextra! This is a basic docs template. You can use it as a starting
-point for your own project :)
+Welcome to the documentation of Faast, a cutting-edge Function as a Service
+(FaaS) server designed to maximize efficiency. Developed in the Rust programming
+language, known for its performance and safety, Faast embodies a remarkable
+blend of robustness and agility, essential in modern serverless architectures.
 
-## What is Nextra?
+A unique aspect of Faast is its tailored execution environment. The system
+utilizes an initramfs and a bespoke Linux kernel, each constructed expressly for
+Faast's operational requirements. The initramfs contains a specialized SDK of
+the language in use (e.g., Node) and an agent that facilitates GRPC
+communication between the virtual machine and the API. In contrast, the Linux
+kernel operates with an initramfs and employs the newc compression format,
+optimizing the system's performance.
 
-A **simple**, **powerful** and **flexible** site generation framework with
-everything you love from Next.js.
+Through these meticulously engineered components and environments, Faast
+transcends conventional FaaS offerings, providing a high-performance, reliable,
+and extensible platform capable of meeting the demanding needs of contemporary
+serverless computing landscapes.
 
-## Documentation
+## Features
 
-The documentation is available at [https://nextra.site](https://nextra.site).
+- The utilization of a custom initramfs and Linux kernel, along with
+  language-specific SDKs, ensures optimized performance and communication
+  between the VM and the API.
+- Faast dynamically receives and executes function code via API without
+  retaining the function, ensuring lightweight operation and real-time code
+  execution.
+- Faast enables streamlined virtual machine launch and management, enhancing the
+  efficiency of function execution.
+- Faast offers a robust and high-speed platform suitable for high-demand
+  serverless computing scenarios.
+- The use of GRPC for communication between the VM and the API provides a
+  modern, protocol-buffer based method for ensuring efficient, robust, and
+  secure inter-component communication.
+
+## License
+
+Distributed under the Apache 2.0 License. See
+[LICENSE](https://github.com/faast-rt/lambdo/blob/main/LICENSE) for more
+information.
+
+## Authors
+
+This project was initially developed by the Polytech DO teams (thanks to the
+help of Samuel Ortiz) in April 2023.
+
+## About the Project
+
+For more information about the project, please visit our
+[GitHub organization](https://github.com/faast-rt).

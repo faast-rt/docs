@@ -1,0 +1,74 @@
+---
+title: Installation
+description: This guide will walk you through the steps to install Faast.
+---
+
+import { Callout } from 'nextra/components';
+
+# Installation
+
+This guide will walk you through the steps to install Faast.
+
+## Prerequisites
+
+- A Linux machine (**x86_64**) with a recent version of the Linux kernel (**>=
+  4.15**).
+- KVM **must** be installed on your machine.
+- A recent version of Docker (>= 18.09) installed on your machine **if you want
+  to use Docker**.
+
+## Get Faast
+
+### Download the docker image (recommended)
+
+You can download the latest docker image of Faast from the Docker Hub:
+
+```bash copy filename="bash"
+docker pull faastrt/lambdo
+```
+
+You can also build the docker image from the source code:
+
+```bash copy filename="bash"
+git clone https://github.com/faast-rt/lambdo
+cd lambdo
+docker build -t faastrt/lambdo .
+```
+
+<Callout type="info">
+  You can skip the rest of this section and go to the next page.
+</Callout>
+
+### Download from the latest release
+
+You can download the latest release of Faast from the
+[releases page](https://github.com/faast-rt/lambdo/releases).
+
+```bash copy filename="bash"
+curl -O https://github.com/faast-rt/lambdo/releases/latest/download/lambdo-x86_64-unknown-linux-musl.tar.gz
+tar xvf lambdo-x86_64-unknown-linux-musl.tar.gz
+```
+
+<Callout type="info">
+  You can skip the rest of this section and go to the next page.
+</Callout>
+
+### Build from source
+
+You can build Faast from the source code.
+
+- You will need to install Rust (via Rustup) and the musl target.
+- You will need to install the `pkg-config libudev-dev protobuf-compiler`
+  package on your system.
+
+```bash copy filename="bash"
+git clone https://github.com/faast-rt/lambdo
+cd lambdo
+cargo build -p api --release --target x86_64-unknown-linux-musl
+```
+
+The binary will be available at `target/x86_64-unknown-linux-musl/release/api`.
+
+<Callout>
+  In the next section, you will see how to configure and run Faast.
+</Callout>

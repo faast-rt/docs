@@ -1,8 +1,9 @@
 {
-  "-- Getting Started --": {
+  "-- Quickstart --": {
     "type": "separator",
-    "title": "Getting Started"
+    "title": "Quickstart"
   },
   "index": "Introduction",
+  "getting-started": "Getting Started",
   "user-guide": "User Guide"
 }
