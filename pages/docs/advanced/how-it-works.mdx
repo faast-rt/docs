@@ -1,0 +1,37 @@
+import Image from 'next/image';
+import Architecture from '../../../public/images/architecture.png';
+
+## How it works ?
+
+<div className="col-span-2 flex items-center justify-center py-2">
+  <Image src={Architecture} alt="Lambdo Architecture" />
+</div>
+
+Lambdo is structured into three main components:
+
+### 1. Initramfs CLI
+
+The CLI is responsible for generating initial RAM file systems (initramfs)
+utilized by the virtual machines (VMs).
+
+### 2. API
+
+The API component consists of several parts:
+
+- **HTTP Server**: This server listens to user code execution requests,
+  processing incoming requests, and forwarding them to the VM manager.
+
+- **VM Manager**: The VM manager maintains a record of all previously launched
+  VMs and can initiate the creation of new VMs using "Lumper" if no VMs are
+  currently available. Additionally, it includes a gRPC server that allows VMs
+  to register themselves with the VM manager once they have started, as well as
+  a gRPC client for sending code execution requests to available VMs.
+
+### 3. Agent
+
+The agent runs inside the VMs and is comprised of both a gRPC client and server.
+Within the agent, the runner engine takes care of tasks such as creating code
+files, executing code, and retrieving the output.
+
+The VMs are launched using "Lumper" and are equipped with a Linux kernel built
+along with the previously generated initramfs.
