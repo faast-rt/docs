@@ -87,9 +87,12 @@ You can write your own configuration file or use example one (must be named
 ```yaml copy filename="initramfs/config.yaml"
 apiVersion: lambdo.io/v1alpha1
 kind: AgentConfig
-serial:
-  path: /dev/pts/6
-  baudRate: 9600
+# Leave empty if you want to use default Lambdo API.
+grpc:
+  remote_port: 50051
+  remote_host: 127.0.0.1
+  local_port: 0
+  local_host: 0.0.0.0
 ```
 
 ## Build initramfs by yourself
