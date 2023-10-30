@@ -1,0 +1,100 @@
+# Project Structure
+
+## Agent
+
+The `agent` directory contains the code necessary to generate the agent that is
+executed within the Virtual Machine (VM) and is responsible for executing the
+code.
+
+### build.rs
+
+The `build.rs` file is responsible for constructing the proto file used by both
+the server and the client for gRPC communication outside of the VM.
+
+### lib
+
+Inside the `lib` directory, you will find:
+
+> #### API
+
+The `API` folder contains the code required to create both a gRPC client and
+server using tonic, as well as the definition of the gRPC fields. These
+definitions are generated thanks to the `build.rs` file. Please note that
+`grpc_definition.rs` is an automatically generated file and should not be
+modified manually.
+
+> #### Runner Engine
+
+    The runner engine, also located within the `lib` directory, is responsible for
+    creating the workspace and executing the code received from the users.
+
+## API
+
+The `api` directory contains the code responsible for generating the executable
+that accepts external HTTP requests to execute code. This directory also houses
+the VM manager and the server that communicates with the agent to execute the
+code.
+
+### model.rs
+
+At the root of the `api` directory, you will find the `model.rs` file, which
+contains the structures used by the HTTP server to define the structure of both
+requests and responses.
+
+### config.rs
+
+The `config.rs` file holds the definition of data structures and functions
+required for loading and manipulating a specific configuration (`LambdoConfig`)
+from a YAML file. This configuration is utilized to parameterize various aspects
+of Lambdo, including the Virtual Machine Monitor (VMM), API, agent, and
+supported programming languages.
+
+### api (Subdirectory)
+
+Inside the `api` directory, there is also an `api` subdirectory containing the
+code for the HTTP server. In `mod.rs`, the `/run` route is defined, which
+launches VMs using the `LambdoApiService` service found in `service.rs`.
+
+### vm_manager
+
+The `vm_manager` directory contains all the low-level logic for communicating
+with the VM. In the `mod.rs` file, you will find functions for launching the
+VMs. Additionally, the `grpc_server.rs` file houses the gRPC server where agents
+from the VMs register upon VM startup. This server manages the state of all the
+VMs.
+
+> #### net.rs
+
+The `net.rs` file is responsible for configuring the network layer of the VMs,
+assigning them IP addresses and network interfaces.
+
+## Initramfs
+
+The `initramfs` directory encompasses the Command Line Interface (CLI) tool that
+enables the building of a valid initramfs from a Docker image. This initramfs
+includes the binary of the agent, its configuration, and an `init` file.
+
+### Fetching Docker Images
+
+The `httpclient.rs` file contains the logic required to make HTTP requests. This
+is subsequently utilized in `registry.rs` to fetch the layers of an image from
+the Docker Hub.
+
+### image.rs
+
+The `image.rs` file encompasses all the code necessary for building an initramfs
+that can be utilized by Lambdo.
+
+## Lumper
+
+Lumper is the Virtual Machine Monitor (VMM) utilized by Lambdo to launch and
+manage virtual machines (VMs). It plays a crucial role in the virtualization
+layer of the system, providing the necessary functionalities to ensure that VMs
+are run efficiently and securely.
+
+## Shared
+
+The `shared` directory is a central hub for elements that are utilized across
+various other modules in the project. It serves as a common ground to store
+reusable code, configurations, and resources, ensuring consistency and reducing
+redundancy throughout the application.
