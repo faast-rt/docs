@@ -3,5 +3,6 @@
     "type": "separator",
     "title": "Getting Started"
   },
-  "index": "Introduction"
+  "index": "Introduction",
+  "user-guide": "User Guide"
 }

@@ -1,0 +1,128 @@
+---
+title: Building initramfs
+description: A guide on how to build initramfs for Lambdo.
+---
+
+import Image from 'next/image';
+import Link from 'next/link';
+import { Callout } from 'nextra/components';
+import InitramfsComponentsImage from '../../../public/images/schemas/initramfs-components.png';
+
+# Building initramfs
+
+Requirements:
+
+- [Rust toolchain](https://www.rust-lang.org/fr/learn/get-started)
+
+## Introduction
+
+Lambdo uses custom initramfs built from Docker images. You can build it by
+yourself or use prebuilt one.
+
+## Lambdo initramfs structure
+
+Lambdo initramfs contains at least 3 components:
+
+- **init** - init process which starts all other processes.
+- **agent** - agent process which is responsible for communication with Lambdo
+  API.
+- **config.yaml** - configuration file which contains all necessary
+  configuration for Lambdo agent (see
+  [Configuration documentation](/docs/reference/configuration)).
+
+<div className="col-span-2 flex items-center justify-center py-2">
+  <Image
+    src={InitramfsComponentsImage}
+    alt="Initramfs components"
+    width={500}
+    height={500}
+  />
+</div>
+
+## Preparation
+
+Create an empty directory for initramfs:
+
+```bash copy
+mkdir initramfs
+```
+
+Clone `lambdo` repository:
+
+```bash copy
+git clone https://github.com/faast-rt/lambdo.git
+```
+
+## Build Lambdo agent
+
+Build Lambdo agent and move it to initramfs directory:
+
+```bash copy
+cd lambdo/agent
+cargo build --release
+cd ../..
+mv lambdo/target/release/agent initramfs
+```
+
+## Write init script
+
+You can write your own script or use example one (must be named `init`):
+
+```bash copy filename="initramfs/init"
+#! /bin/sh
+mount -t devtmpfs dev /dev
+mount -t proc proc /proc
+mount -t sysfs sysfs /sys
+ip link set up dev lo
+
+exec /agent --config /config.yaml
+
+exit
+poweroff -f
+```
+
+<Callout type="warning">
+  Your init script **must** have execution rights.
+</Callout>
+
+<Callout type="warning">
+  Your init script **must** start agent process to work with Lambdo.
+</Callout>
+
+## Write configuration file
+
+You can write your own configuration file or use example one (must be named
+`config.yaml`):
+
+```yaml copy filename="initramfs/config.yaml"
+apiVersion: lambdo.io/v1alpha1
+kind: AgentConfig
+# Leave empty if you want to use default Lambdo API.
+grpc:
+  remote_port: 50051
+  remote_host: 127.0.0.1
+  local_port: 0
+  local_host: 0.0.0.0
+```
+
+## Build initramfs by yourself
+
+Build initramfs tool and move it to initramfs directory:
+
+```bash copy
+cd lambdo/initramfs
+cargo build --release
+cd ../..
+mv lambdo/target/release/initramfs initramfs
+```
+
+Run initramfs tool (replace `node:20-alpine` with the image of the language you
+want):
+
+```bash copy
+cd initramfs
+./initramfs --image node:20-alpine
+```
+
+**The image built here is stored at
+`initramfs/initramfs-library-node-20-alpine.img`.**
