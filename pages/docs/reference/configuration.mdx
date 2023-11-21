@@ -1,0 +1,132 @@
+---
+title: 'Configuration Reference'
+description: 'Reference guide for configuring Faast.'
+---
+
+import { Callout } from 'nextra/components';
+
+# Configuration Reference
+
+This reference guide provides details on configuring Faast for all parameters.
+
+## API Configuration
+
+Here is an example of the API configuration:
+
+```yaml copy filename="config.yaml"
+apiVersion: lambdo.io/v1alpha1
+kind: Config
+api:
+  web_host: 0.0.0.0
+  web_port: 3000
+  grpc_host: 0.0.0.0
+  gprc_port: 50051
+  bridge: lambdo0
+  ip: 10.0.50.0/8
+```
+
+### API Server
+
+The API server configuration includes:
+
+- **`web_host`**: The interface on which the API server will listen
+  > Example: `0.0.0.0` (all interfaces)
+- **`web_port`**: The port on which the API server will listen
+  > Example: `3000`
+
+### gRPC Server
+
+The gRPC server configuration includes:
+
+- **`grpc_host`**: The interface on which the gRPC server will listen
+  > Example: `0.0.0.0` (all interfaces)
+- **`gprc_port`**: The port on which the gRPC server will listen
+  > Example: `50051`
+
+### Bridge Configuration
+
+The bridge configuration includes:
+
+- **`bridge`**: The name of the bridge
+  > Example: `lambdo0`
+- **`ip`**: The IP address of the bridge
+  > Example: `10.0.50.0/8`
+
+## VMM Configuration (Virtual Machine Monitor)
+
+Here is an example of the VMM configuration:
+
+```yaml copy filename="config.yaml"
+apiVersion: lambdo.io/v1alpha1
+kind: Config
+vmm:
+  kernel: /var/lib/lambdo/kernel/vmlinux.bin
+```
+
+The VMM configuration includes:
+
+- **`kernel`**: The path to the Linux kernel binary utilized by the VMM
+  > Example: `/var/lib/lambdo/kernel/vmlinux.bin`
+
+## Agent Configuration
+
+<Callout type="warning">
+  The agent configuration is not implemented yet.
+</Callout>
+
+Here is an example of the agent configuration:
+
+```yaml copy filename="config.yaml"
+apiVersion: lambdo.io/v1alpha1
+kind: Config
+agent: # NOT IMPLEMENTED
+  path: /usr/local/bin/lambdo-agent
+  config: /etc/lambdo/agent.yaml
+```
+
+The agent configuration includes:
+
+- **`path`**: The path to the agent binary
+  > Example: `/usr/local/bin/lambdo-agent`
+- **`config`**: The path to the agent configuration file
+  > Example: `/etc/lambdo/agent.yaml`
+
+## Language Runtime Configuration
+
+Here is an example of the language runtime configuration:
+
+```yaml copy filename="config.yaml"
+apiVersion: lambdo.io/v1alpha1
+kind: Config
+languages:
+  - name: NODE
+    version: 12
+    initramfs: /var/lib/lambdo/initramfs/node-12.img
+    steps:
+      - name: Run the code
+        command: /usr/local/bin/node {{filename}}
+        output:
+          enabled: true
+          debug: false
+```
+
+The configuration for a Node.js runtime includes:
+
+- **`name`**: The name of the runtime
+  > Example: `NODE`
+- **`version`**: The version of the runtime
+  > Example: `12`
+- **`initramfs`**: The path to the initramfs for the runtime
+  > Example: `/var/lib/lambdo/initramfs/node-12.img`
+- **`steps`**: The steps to run the code. Each step includes the following
+  parameters:
+  - **`name`**: The name of the step
+    > Example: `Run the code`
+  - **`command`**: The command to run for the step
+    > Example: `/usr/local/bin/node {{filename}}`
+  - **`output`**: The output configuration for the step. This includes the
+    following parameters:
+    - **`enabled`**: Whether to enable the output
+      > Example: `true`
+    - **`debug`**: Whether to enable debug output (useful for build steps)
+      > Example: `false`
