@@ -1,0 +1,59 @@
+---
+title: 'POST /run'
+description: 'Documentation for the POST /run API endpoint in Faast.'
+---
+
+import { Callout } from 'nextra/components';
+
+# POST /run
+
+This section provides documentation for the `POST /run` API endpoint in Faast.
+
+## Request Body
+
+The request body for the `POST /run` API endpoint should be a JSON object with
+the following fields:
+
+- `language` (String): The name of the programming language.
+- `version` (String): The version of the language runtime.
+- `input` (String): The input data for code execution (stdin).
+- `code` (Array of FileModel): An array of code files required for execution.
+  Each `FileModel` object in the array should have the following fields:
+
+  - `filename` (String): The name of the file.
+  - `content` (String): The content of the file.
+
+Here is an example request body for an API call that executes a Node.js program:
+
+```json copy filename="request.json"
+{
+  "language": "NODE",
+  "version": "12",
+  "input": "",
+  "code": [
+    {
+      "filename": "main.js",
+      "content": "console.log('Hello, World!');"
+    }
+  ]
+}
+```
+
+## Response Body
+
+The response body for the `POST /run` API endpoint represents the execution
+result. It is a JSON object with the following fields:
+
+- `status` (Integer): The exit status code of the code execution.
+- `stdout` (String): The standard output of the code execution.
+- `stderr` (String): The standard error output of the code execution.
+
+Here is an example response body:
+
+```json
+{
+  "status": 0,
+  "stdout": "Hello, World!\n",
+  "stderr": ""
+}
+```
